@@ -1,0 +1,20 @@
+[
+  {
+    "name": "php-fpm",
+    "image": "arielase/wdpress118-php-fpm:7.4",
+    "environment": [
+      {"name": "CONTAINER_ROLE", "value": "queue"},
+      {"name": "APP_ENV", "value": "production"},
+      {"name": "SCHEDULE_INTERVAL", "value": "1"},
+      {"name": "SCHEDULE_STEP", "value": "0"}
+    ],
+    "logConfiguration": {
+      "logDriver": "awslogs",
+      "options": {
+        "awslogs-region": "ap-northeast-1",
+        "awslogs-group": "sample-logs",
+        "awslogs-stream-prefix": "queue-php-fpm"
+      }
+    }
+  }
+]

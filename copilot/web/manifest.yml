@@ -1,0 +1,37 @@
+name: web
+type: Load Balanced Web Service
+
+image:
+  build: ../Dockerfile.php-fpm
+  port: 9000
+
+sidecars:
+  nginx:
+    image: arielase/wdpress118-nginx:mainline
+    port: 80
+
+http:
+  path: '/'
+  healthcheck: '/healthcheck.txt'
+  targetContainer: 'nginx'
+
+cpu: 256
+memory: 512
+count: 1
+
+variables:
+  CONTAINER_ROLE: app
+  APP_ENV: production
+  SCHEDULE_INTERVAL: 1
+  SCHEDULE_STEP: 0
+
+environments:
+  development:
+    count: 1
+    variables:
+      APP_ENV: development
+  production:
+    count: 2
+    variables:
+      APP_ENV: production
+

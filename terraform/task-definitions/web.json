@@ -1,0 +1,37 @@
+[
+  {
+    "name": "nginx",
+    "image": "arielase/wdpress118-nginx:mainline",
+    "portMappings": [
+      {
+        "containerPort": 80
+      }
+    ],
+    "logConfiguration": {
+      "logDriver": "awslogs",
+      "options": {
+        "awslogs-region": "ap-northeast-1",
+        "awslogs-group": "sample-logs",
+        "awslogs-stream-prefix": "web-nginx"
+      }
+    }
+  },
+  {
+    "name": "php-fpm",
+    "image": "arielase/wdpress118-php-fpm:7.4",
+    "environment": [
+      {"name": "CONTAINER_ROLE", "value": "app"},
+      {"name": "APP_ENV", "value": "production"},
+      {"name": "SCHEDULE_INTERVAL", "value": "1"},
+      {"name": "SCHEDULE_STEP", "value": "0"}
+    ],
+    "logConfiguration": {
+      "logDriver": "awslogs",
+      "options": {
+        "awslogs-region": "ap-northeast-1",
+        "awslogs-group": "sample-logs",
+        "awslogs-stream-prefix": "web-php-fpm"
+      }
+    }
+  }
+]
